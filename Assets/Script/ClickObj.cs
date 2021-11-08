@@ -25,7 +25,7 @@ public class ClickObj : MonoBehaviour
                 RotateObj rotateScript = hitInfo.collider.GetComponent<RotateObj>();
                 if (rotateScript != null)
                 {
-                    rotateScript.Rotation(m_impulseForce);
+                    rotateScript.m_isTouch = true;
                 }
             }
         }
