@@ -18,6 +18,9 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Script/PipeWay.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectId" id="20wivHTIUoXcVVOAkoS4djFVmGf" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -61,6 +64,7 @@
       <option name="presentableId" value="Default" />
       <updated>1636962282069</updated>
       <workItem from="1636962296368" duration="9041000" />
+      <workItem from="1636979078853" duration="8433000" />
     </task>
     <servers />
   </component>
@@ -72,24 +76,5 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Script/Pipe.cs</url>
-          <line>63</line>
-          <properties documentPath="C:\Users\game2\Documents\GitHub\Canal-du-Midi\Assets\Script\Pipe.cs" initialLine="63" containingFunctionPresentation="method 'Update'">
-            <startOffsets>
-              <option value="2030" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2045" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
