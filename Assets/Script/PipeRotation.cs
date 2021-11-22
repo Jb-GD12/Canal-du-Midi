@@ -55,6 +55,7 @@ public class PipeRotation : MonoBehaviour
         {
             m_isRotate = false;
             transform.rotation = Quaternion.Euler(m_targetRotationList[m_currentRotation]);
+            GameManager.Instance.Verification();
         }
 
     }

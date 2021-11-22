@@ -8,6 +8,8 @@ public class PipeWay : MonoBehaviour
     
     private PipeRotation m_idRotation;
     private int m_idTampon;
+
+    public bool[,] m_testArray = new bool[4,4];
     
     [SerializeField] [Tooltip("Liste de/des ID de rotation qui permettent de faire le bon chemin")] private List<int> m_correctRotationList;
 

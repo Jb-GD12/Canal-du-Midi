@@ -5,19 +5,21 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-
+    [Header("Variables de niveaux")]
     [Tooltip("Liste regroupant l'état -alignement correct- des tuiles qui font le chemin souhaité")] public List<bool> m_correctAlignList;
+    public UIManager m_uiManager;
 
     public bool m_gameOver;
     public bool m_win;
 
-    private void Start()
+
+    public void Start()
     {
         m_gameOver = false;
         m_win = false;
     }
 
-    void Update()
+    public void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -34,20 +36,67 @@ public class GameManager : Singleton<GameManager>
                 }
             }
 
-            for (int i = 0; i < m_correctAlignList.Count-1; i++)
+            StartLevel();
+            
+        }
+    }
+
+    public void Verification()
+    {
+        int size = m_correctAlignList.Count;
+        int valide = 0;
+
+        for (int i = 0; i < m_correctAlignList.Count - 1; i++)
+        {
+            if (m_correctAlignList[i] == true && m_correctAlignList[i + 1] == true)
             {
-                if (m_correctAlignList[i] && m_correctAlignList[i++])
-                {
-                    StartCoroutine(Vicotory());
-                }
+                valide += 1;
+                if (valide == size)
+                    StartCoroutine(Victory());
+            }
+            else
+            {
+                break;
             }
         }
     }
 
-    IEnumerator Vicotory()
+    IEnumerator Victory()
     {
         yield return new WaitForSeconds(0.3f);
         m_win = true;
-        Debug.Log("win !");
+        
+    }
+
+    public void GameOver()
+    {
+        m_gameOver = true;
+        Debug.Log("GameOver");
+    }
+
+    public void Restart()
+    {
+        Debug.Log("Restart");
+    }
+
+
+    public void ZoomSelection()
+    {
+        //Zoom sur le niveau sélectionné
+    }
+
+    public void DezoomSelection()
+    {
+        //Retour au menu principal via la selection de niveau
+    }
+
+    public void StartLevel()
+    {
+        
+    }
+
+    public void ReturnMenu()
+    {
+        //Retour à la zone de sélection
     }
 }
