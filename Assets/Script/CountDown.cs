@@ -19,6 +19,9 @@ public class CountDown : MonoBehaviour
 
     void Start()
     {
+        m_seconds = GameManager.Instance.m_seconde;
+        m_minutes = GameManager.Instance.m_minute;
+
         timerText.color = fontColor;
         timerDefault = 0;
         timerDefault += (m_seconds + (m_minutes * 60));

@@ -47,6 +47,7 @@ public class PipeRotation : MonoBehaviour
         if (m_isRotate)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.Euler(m_targetRotationList[m_currentRotation]),Time.deltaTime * m_lerpTime);
+            GameManager.Instance.Verification();
         }
 
         //vérification de l'alignement de la tuile

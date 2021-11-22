@@ -9,13 +9,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject m_winScreen;
     [SerializeField] private GameObject m_pauseScreen;
     [SerializeField] private GameObject m_countDown;
-    [SerializeField] private Canvas m_uiParent;
+    private Canvas m_uiParent;
 
     private bool m_isPause;
 
-    private void Awake()
+    private void Start()
     {
-        GameManager.Instance.m_uiManager = this;
+        
     }
 
     public void StartLevel()

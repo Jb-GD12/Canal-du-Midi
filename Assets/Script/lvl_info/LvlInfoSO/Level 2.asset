@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b53611ca635ea9c4daff2a623d96160b, type: 3}
+  m_Name: Level 2
+  m_EditorClassIdentifier: 
+  nomDuNiveau: Niveau 1
+  levelScene: {fileID: 102900000, guid: bb5c4d0512931cf4483cb83cd948433f, type: 3}
+  indexLevel: 1
+  seconde: 25
+  minute: 0
