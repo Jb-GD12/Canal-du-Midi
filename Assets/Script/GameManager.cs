@@ -100,7 +100,7 @@ public class GameManager : Singleton<GameManager>
                             m_seconde = selectedLevel.m_SO.seconde;
                             m_minute = selectedLevel.m_SO.minute;
 
-                            SceneManager.LoadScene(selectedLevel.m_SO.levelScene.name, LoadSceneMode.Single);
+                            SceneManager.LoadScene(selectedLevel.m_SO.indexLevel, LoadSceneMode.Single);
                             StartCoroutine(WaitForStart());
                         }
                     }else
