@@ -8,8 +8,6 @@ public class PipeWay : MonoBehaviour
     
     private PipeRotation m_idRotation;
     private int m_idTampon;
-
-    public bool[,] m_testArray = new bool[4,4];
     
     [SerializeField] [Tooltip("Liste de/des ID de rotation qui permettent de faire le bon chemin")] private List<int> m_correctRotationList;
 
@@ -27,7 +25,7 @@ public class PipeWay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (m_idTampon != m_idRotation.m_currentRotation)
+        if (m_idRotation.m_isTouch && m_idTampon != m_idRotation.m_currentRotation)
         {
             AlignVerif();
             m_idTampon = m_idRotation.m_currentRotation;
@@ -37,7 +35,7 @@ public class PipeWay : MonoBehaviour
     //Vérifie si la tuile est correctement agancé.
     private void AlignVerif()
     {
-        Debug.Log("vérification");
+        
         for (int i = 0; i < m_correctRotationList.Count; i++)
         {
             if (m_idRotation.m_currentRotation == m_correctRotationList[i])
@@ -51,5 +49,7 @@ public class PipeWay : MonoBehaviour
                 m_isAlign = false;
             }
         }
+        
+        GameManager.Instance.Verification();
     }
 }

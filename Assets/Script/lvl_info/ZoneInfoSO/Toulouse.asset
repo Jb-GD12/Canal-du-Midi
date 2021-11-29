@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b53611ca635ea9c4daff2a623d96160b, type: 3}
-  m_Name: Level 1
+  m_Script: {fileID: 11500000, guid: 37a1c7c39c0f357478a5e0264c61943a, type: 3}
+  m_Name: Toulouse
   m_EditorClassIdentifier: 
-  nomDuNiveau: Tutoriel
-  levelScene: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
-  indexLevel: 0
-  seconde: 120
-  minute: 0
+  nomDeZone: Toulouse
+  zoneID: 0

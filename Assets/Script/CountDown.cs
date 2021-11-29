@@ -30,7 +30,7 @@ public class CountDown : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.Instance.m_gameOver && (currentSeconds -= Time.deltaTime) <= 0)
+        if (!GameManager.Instance.m_gameOver && !GameManager.Instance.m_win && (currentSeconds -= Time.deltaTime) <= 0)
         {
             TimeUp();
             GameManager.Instance.GameOver();

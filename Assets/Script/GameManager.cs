@@ -13,27 +13,26 @@ public class GameManager : Singleton<GameManager>
 
     #endregion
 
-    #region LevelSelection
+    #region Selection
 
-    [HideInInspector] public ContainerLevelSO m_selectedLevel;
-     public List<ContainerLevelSO> m_LevelList;
+    public List<GameObject> m_zoneList;
+    
+    [HideInInspector] public List<ContainerLevelSO> m_LevelList;
     [HideInInspector] public int m_levelAccess = 0;
-    public LayerMask m_checkLayer;
-
+    public LayerMask m_levelLayer;
+    public LayerMask m_zoneLayer;
+    /*[HideInInspector]*/ public int m_currentZone;
 
     #endregion
 
     #region levelVariables
 
-    [Header("Variables de niveaux")]
-    [Tooltip("Liste regroupant l'état -alignement correct- des tuiles qui font le chemin souhaité")] public List<bool> m_correctAlignList;
+    [Header("Variables de niveaux")] [Tooltip("Liste regroupant l'état -alignement correct- des tuiles qui font le chemin souhaité")] public List<bool> m_correctAlignList;
     public int m_seconde;
     public int m_minute;
 
     public bool m_gameOver;
     public bool m_win;
-
-
 
     #endregion
 
@@ -53,6 +52,7 @@ public class GameManager : Singleton<GameManager>
 
     public void Start()
     {
+        m_currentZone = 0;
         m_levelStart = false;
         PlayerPrefs.SetInt("UnlockLvl", m_levelAccess);
 
@@ -67,6 +67,11 @@ public class GameManager : Singleton<GameManager>
                 }
             }
         }
+
+        for (int i = 1; i < m_zoneList.Count; i++)
+        {
+            m_zoneList[i].SetActive(false);
+        }
     }
 
     public void Update()
@@ -78,23 +83,49 @@ public class GameManager : Singleton<GameManager>
 
             if (Physics.Raycast(ray, out hit))
             {
-                //Fonctionnalité des menu
+                //Fonctionnalité du touch outLevel 
                 if (!m_levelStart)
                 {
-                    Debug.Log("trolololo");
                     LayerMask layerMask = hit.collider.gameObject.layer;
-                    m_selectedLevel = hit.collider.gameObject.GetComponent<ContainerLevelSO>();
 
-                    if (layerMask == (layerMask | (1 << m_checkLayer.value)) && m_selectedLevel.m_SO.indexLevel <= PlayerPrefs.GetInt("UnlockLevel"))
+                    //Sélection de niveau et chargement du niveau dans une nouvelle scène
+                    /*if (layerMask == (layerMask | (1 << m_levelLayer.value)))
                     {
-                        m_seconde = m_selectedLevel.m_SO.seconde;
-                        m_minute = m_selectedLevel.m_SO.minute;
+                        ContainerLevelSO selectedLevel = hit.collider.GetComponent<ContainerLevelSO>();
+                        
+                        if(selectedLevel.m_SO.indexLevel <= PlayerPrefs.GetInt("UnlockLevel"))
+                        {
+                            m_seconde = selectedLevel.m_SO.seconde;
+                            m_minute = selectedLevel.m_SO.minute;
 
-                        SceneManager.LoadScene(m_selectedLevel.m_SO.levelScene.name, LoadSceneMode.Single);
-                        StartCoroutine(WaitForStart());
+                            SceneManager.LoadScene(selectedLevel.m_SO.levelScene.name, LoadSceneMode.Single);
+                            StartCoroutine(WaitForStart());
+                        }
+                    }*/
+                    
+                    Debug.Log("!startlevel");
+                    if (layerMask == m_zoneLayer)
+                    {
+                        Debug.Log("je marche");
                     }
+                    
+                    //Sélection de zone
+                    /*if (layerMask == (layerMask | (1 << m_zoneLayer.value)))
+                    {
+                        Debug.Log("yes");
+                        ContainerZoneSO selectedZone = hit.collider.GetComponent<ContainerZoneSO>();
+
+                        if (selectedZone.m_SO.zoneID <= PlayerPrefs.GetInt("UnlockLevel"))
+                        {
+                            Debug.Log("yes");
+                            ZoomSelection(selectedZone);
+                            
+                        }else
+                            Debug.Log("no");
+                        
+                    }*/
                 }
-                //fonctinonalité in Game
+                //fonctinonalité du touche inLevel >> La tuile tourne de 90° quand le joueur la touche
                 else
                 {
                     PipeRotation pipe = hit.collider.GetComponent<PipeRotation>();
@@ -104,18 +135,14 @@ public class GameManager : Singleton<GameManager>
                         pipe.m_isTouch = true;
                     }
                 }
-
+                
+                
             }
-
+            
             
         }
     }
 
-    IEnumerator WaitForStart()
-    {
-        yield return new WaitForSeconds(0.3f);
-        StartLevel();
-    }
 
     /// <summary>
     /// Fonction d'initialisation des interfaces des niveaux
@@ -150,22 +177,31 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public void Verification()
     {
+        Debug.Log("vérification");
         int size = m_correctAlignList.Count;
         int valide = 0;
 
-        for (int i = 0; i < m_correctAlignList.Count - 1; i++)
+        for (int i = 0; i < size; i++)
         {
-            if (m_correctAlignList[i] == true && m_correctAlignList[i + 1] == true)
+            if (m_correctAlignList[i])
             {
                 valide += 1;
-                if (valide == size)
-                    StartCoroutine(Victory());
+                Debug.Log(valide);
             }
             else
             {
                 break;
             }
         }
+        
+        if (valide == size)
+            StartCoroutine(Victory());
+    }
+    
+    IEnumerator WaitForStart()
+    {
+        yield return new WaitForSeconds(0.3f);
+        StartLevel();
     }
 
     /// <summary>
@@ -175,6 +211,7 @@ public class GameManager : Singleton<GameManager>
     IEnumerator Victory()
     {
         yield return new WaitForSeconds(0.3f);
+        Debug.Log("victory");
         m_win = true;
         
     }
@@ -195,18 +232,31 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("Restart");
     }
 
-    public void ZoomSelection()
+    public void ZoomSelection(ContainerZoneSO p_selectedZone)
     {
         //Zoom sur le niveau sélectionné
+        m_zoneList[m_currentZone].SetActive(false);
+        m_currentZone = p_selectedZone.m_SO.zoneID;
+        m_zoneList[m_currentZone].SetActive(true);
+
+
     }
 
     public void DezoomSelection()
     {
         //Retour au menu principal via la selection de niveau
+        m_zoneList[m_currentZone].SetActive(false);
+        m_currentZone = 0;
+        m_zoneList[m_currentZone].SetActive(true);
     }
 
-    public void ReturnMenu()
+    public void LevelToMenu()
     {
         m_levelStart = false;
+    }
+
+    public void ReturnMainMap()
+    {
+        m_currentZone = 0;
     }
 }
