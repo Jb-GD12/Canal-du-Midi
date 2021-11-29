@@ -18,7 +18,7 @@ public class GameManager : Singleton<GameManager>
     public List<GameObject> m_zoneList;
     
     [HideInInspector] public List<ContainerLevelSO> m_LevelList;
-    [HideInInspector] public int m_levelAccess = 0;
+    public int m_levelAccess = 1;
     public LayerMask m_levelLayer;
     public LayerMask m_zoneLayer;
     /*[HideInInspector]*/ public int m_currentZone;
@@ -55,6 +55,8 @@ public class GameManager : Singleton<GameManager>
         m_currentZone = 0;
         m_levelStart = false;
         PlayerPrefs.SetInt("UnlockLvl", m_levelAccess);
+        var test = PlayerPrefs.GetInt("UnlockLvl");
+        Debug.Log(test);
 
         for (int i = 0; i < m_LevelList.Count; i++) {
             for (int j = 0; j < m_LevelList.Count - 1; j++)
@@ -89,11 +91,11 @@ public class GameManager : Singleton<GameManager>
                     LayerMask layerMask = hit.collider.gameObject.layer;
 
                     //Sélection de niveau et chargement du niveau dans une nouvelle scène
-                    /*if (layerMask == (layerMask | (1 << m_levelLayer.value)))
+                    if (layerMask == (layerMask | (1 << m_levelLayer.value)))
                     {
                         ContainerLevelSO selectedLevel = hit.collider.GetComponent<ContainerLevelSO>();
                         
-                        if(selectedLevel.m_SO.indexLevel <= PlayerPrefs.GetInt("UnlockLevel"))
+                        if(selectedLevel.m_SO.indexLevel <= PlayerPrefs.GetInt("UnlockLvl"))
                         {
                             m_seconde = selectedLevel.m_SO.seconde;
                             m_minute = selectedLevel.m_SO.minute;
@@ -101,29 +103,21 @@ public class GameManager : Singleton<GameManager>
                             SceneManager.LoadScene(selectedLevel.m_SO.levelScene.name, LoadSceneMode.Single);
                             StartCoroutine(WaitForStart());
                         }
-                    }*/
-                    
-                    Debug.Log("!startlevel");
-                    if (layerMask == m_zoneLayer)
+                    }else
                     {
-                        Debug.Log("je marche");
-                    }
-                    
-                    //Sélection de zone
-                    /*if (layerMask == (layerMask | (1 << m_zoneLayer.value)))
-                    {
-                        Debug.Log("yes");
                         ContainerZoneSO selectedZone = hit.collider.GetComponent<ContainerZoneSO>();
+                        int test = PlayerPrefs.GetInt("UnlockLvl");
+                        Debug.Log(test);
 
-                        if (selectedZone.m_SO.zoneID <= PlayerPrefs.GetInt("UnlockLevel"))
+                        if (selectedZone.m_SO.zoneID <= PlayerPrefs.GetInt("UnlockLvl"))
                         {
-                            Debug.Log("yes");
+                            
                             ZoomSelection(selectedZone);
                             
                         }else
                             Debug.Log("no");
                         
-                    }*/
+                    }
                 }
                 //fonctinonalité du touche inLevel >> La tuile tourne de 90° quand le joueur la touche
                 else
@@ -235,6 +229,9 @@ public class GameManager : Singleton<GameManager>
     public void ZoomSelection(ContainerZoneSO p_selectedZone)
     {
         //Zoom sur le niveau sélectionné
+        Debug.Log("yes");
+        Debug.Log(p_selectedZone);
+
         m_zoneList[m_currentZone].SetActive(false);
         m_currentZone = p_selectedZone.m_SO.zoneID;
         m_zoneList[m_currentZone].SetActive(true);
