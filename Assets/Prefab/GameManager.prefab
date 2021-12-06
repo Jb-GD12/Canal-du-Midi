@@ -56,6 +56,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   m_currentZone: 0
+  m_selectedZone: {fileID: 0}
+  test: {fileID: 0}
   m_correctAlignList: 
   m_seconde: 0
   m_minute: 0
@@ -65,7 +67,7 @@ MonoBehaviour:
   m_pauseMenu: {fileID: 0}
   m_returnMainButton: {fileID: 1999680933075108886, guid: 2d25968abe711c24e94975be5a9ab8f1, type: 3}
   m_looseScreen: {fileID: 6335507905900016817, guid: 3ea06bf730b88224a9b69a32c215900d, type: 3}
-  m_winScreen: {fileID: 0}
+  m_winScreen: {fileID: 6335507905900016817, guid: db0037b78fdbc4848a748ed5ced3ed55, type: 3}
   m_pauseScreen: {fileID: 1999680933075108886, guid: 10365db24f7780e4bb52fa7a14389114, type: 3}
   m_countDown: {fileID: 8445210142152175848, guid: ec18fe57392765540ab65382c15cb6f2, type: 3}
   m_uiParent: {fileID: 0}

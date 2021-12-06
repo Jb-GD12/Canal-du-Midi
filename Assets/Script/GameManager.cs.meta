@@ -1,13 +1,19 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/Script/GameManager.cs.meta
 guid: af74ce37c77c06146a6fe9d46da9eee6
-=======
-guid: 6e29bbc22c3f1204ab6da52d5795e095
->>>>>>> 9022c9defbc3504f6c7f09ffbc2276603f841a51:Assets/Script/Test.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - m_selectedZone: {instanceID: 0}
+  - test: {instanceID: 0}
+  - m_lvlSO: {instanceID: 0}
+  - m_pauseMenu: {instanceID: 0}
+  - m_returnMainButton: {fileID: 1999680933075108886, guid: 2d25968abe711c24e94975be5a9ab8f1, type: 3}
+  - m_looseScreen: {fileID: 6335507905900016817, guid: 3ea06bf730b88224a9b69a32c215900d, type: 3}
+  - m_winScreen: {fileID: 6335507905900016817, guid: db0037b78fdbc4848a748ed5ced3ed55, type: 3}
+  - m_pauseScreen: {fileID: 1999680933075108886, guid: 10365db24f7780e4bb52fa7a14389114, type: 3}
+  - m_countDown: {fileID: 8445210142152175848, guid: ec18fe57392765540ab65382c15cb6f2, type: 3}
+  - m_uiParent: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

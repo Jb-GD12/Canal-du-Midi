@@ -62,8 +62,6 @@ public class GameManager : Singleton<GameManager>
     {
         //Penser à supprimer cette ligne pour la version finale
         PlayerPrefs.SetInt("UnlockLvl", m_levelAccess);
-
-        LaunchMain();
         
     }
 
@@ -91,7 +89,7 @@ public class GameManager : Singleton<GameManager>
                             m_seconde = m_lvlSO.seconde;
                             m_minute = m_lvlSO.minute;
 
-                            SceneManager.LoadScene(m_lvlSO.indexLevel, LoadSceneMode.Single);
+                            SceneManager.LoadScene(m_lvlSO.indexLevel + 1, LoadSceneMode.Single);
                             StartCoroutine(WaitForStart());
                         }
                     }else
@@ -128,15 +126,17 @@ public class GameManager : Singleton<GameManager>
     public void LaunchMain() 
     {
         m_levelStart = false;
+        SceneManager.LoadScene(1, LoadSceneMode.Single);
 
         for (int i = 1; i < m_zoneList.Count; i++)
         {
+            m_zoneList[i] = Instantiate(m_zoneList[i], new Vector3(0,0,0), m_zoneList[i].transform.rotation);
             m_zoneList[i].SetActive(false);
         }
 
         m_zoneList[m_currentZone].SetActive(true);
 
-        //Launch inté=erface et setactive false les non utile
+        //Launch interface et setactive false les non utile
         m_uiParent = FindObjectOfType<Canvas>();
         if (m_uiParent == null)
         {
@@ -148,7 +148,6 @@ public class GameManager : Singleton<GameManager>
         {
             m_returnMainButton.SetActive(false);
         }
-
 
     }
 
@@ -166,10 +165,10 @@ public class GameManager : Singleton<GameManager>
         m_looseScreen = Instantiate(m_looseScreen, m_uiParent.transform);
         m_looseScreen.SetActive(false);
 
-        /*m_winScreen = Instantiate(m_winScreen, m_uiParent.transform.parent);
+        m_winScreen = Instantiate(m_winScreen, m_uiParent.transform);
         m_winScreen.SetActive(false);
 
-        m_pauseScreen = Instantiate(m_pauseScreen, m_uiParent.transform.parent);
+        /*m_pauseScreen = Instantiate(m_pauseScreen, m_uiParent.transform.parent);
         m_pauseScreen.SetActive(false);*/
 
         m_countDown = Instantiate(m_countDown, m_uiParent.transform);
@@ -194,18 +193,20 @@ public class GameManager : Singleton<GameManager>
             if (m_correctAlignList[i])
             {
                 valide += 1;
-                Debug.Log(valide);
             }
             else
             {
                 break;
             }
         }
-        
+
         if (valide == size)
+        {
+            Debug.Log("victory");
             StartCoroutine(Victory());
+        }
     }
-    
+
     IEnumerator WaitForStart()
     {
         yield return new WaitForSeconds(0.3f);
@@ -221,7 +222,8 @@ public class GameManager : Singleton<GameManager>
         yield return new WaitForSeconds(0.3f);
         Debug.Log("victory");
         m_win = true;
-        if (m_lvlSO.indexLevel + 1 > PlayerPrefs.GetInt("UnlockLvl"))
+        m_winScreen.SetActive(true);
+        if (m_lvlSO.indexLevel == PlayerPrefs.GetInt("UnlockLvl"))
             PlayerPrefs.SetInt("UnlockLvl", m_lvlSO.indexLevel + 1);
     }
 
@@ -269,26 +271,5 @@ public class GameManager : Singleton<GameManager>
         GameManager.Instance.m_zoneList[GameManager.Instance.m_currentZone].SetActive(true);
 
 
-    }
-
-    public void LevelToMenu()
-    {
-        m_levelStart = false;
-        SceneManager.LoadScene(0, LoadSceneMode.Single);
-        LaunchMain();
-
-    }
-
-    /// <summary>
-    /// Retour au main menu à partir d'un niveau
-    /// </summary>
-    public void ReturnMap()
-    {
-        
-        m_zoneList[m_currentZone].SetActive(true);
-        m_currentZone = 0;
-        m_zoneList[0].SetActive(false);
-
-        
     }
 }
