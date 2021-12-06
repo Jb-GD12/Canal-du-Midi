@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,33 +10,23 @@ public class InstanceMap : MonoBehaviour
 
 
     // Start is called before the first frame update
-    /*void Awake()
+    void Start()
     {
-        Debug.Log("letgo");
+        if (GameManager.Instance.m_zoneList == null)
+        {
+            GameManager.Instance.m_zoneList = m_zoneList ;
+        }
+
         for (int i = 0; i < GameManager.Instance.m_zoneList.Count; i++)
         {
-            if (GameManager.Instance.m_zoneList[i] == null)
-            {
-                GameManager.Instance.m_zoneList.Add(Instantiate(m_zoneList[i]));
-            }
-            GameManager.Instance.m_zoneList[i].SetActive(false);
+            if(GameManager.Instance.m_zoneList[i] == null)
+                GameManager.Instance.m_zoneList[i] = m_zoneList[i];
+
         }
+        GameManager.Instance.InstanceMap();
 
-        GameManager.Instance.m_zoneList[GameManager.Instance.m_currentZone].SetActive(true);
 
-        //Launch interface et setactive false les non utile
-        GameManager.Instance.m_uiParent = FindObjectOfType<Canvas>();
-        if (GameManager.Instance.m_uiParent == null)
-        {
-            GameManager.Instance.m_uiParent = Instantiate(new Canvas());
-        }
-
-        GameManager.Instance.m_returnMainButton = Instantiate(m_returnMainButton, GameManager.Instance.m_uiParent.transform);
-        if (GameManager.Instance.m_currentZone == 0)
-        {
-            GameManager.Instance.m_returnMainButton.SetActive(false);
-       */ }
     }
 
-    
+
 }

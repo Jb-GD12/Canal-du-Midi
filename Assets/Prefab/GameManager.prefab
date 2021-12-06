@@ -46,6 +46,7 @@ MonoBehaviour:
   objectName: GameManager
   dontDestroyOnLoad: 0
   m_levelStart: 0
+  m_isDontDestroy: 0
   m_zoneList:
   - {fileID: 885155759542950829, guid: 081bdfbd33d5daf4f9ed601d2e608d49, type: 3}
   - {fileID: 6922748340808635127, guid: 9358237c919266b47ba0e977fcd66604, type: 3}

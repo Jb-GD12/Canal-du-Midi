@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   nomDuNiveau: Niveau 1
-  levelScene: {fileID: 102900000, guid: bb5c4d0512931cf4483cb83cd948433f, type: 3}
   indexLevel: 2
-  seconde: 25
+  seconde: 45
   minute: 0

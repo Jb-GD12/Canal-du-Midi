@@ -11,6 +11,7 @@ public class GameManager : Singleton<GameManager>
     #region Variable d'état
 
     [HideInInspector] public bool m_levelStart;
+    [HideInInspector] public bool m_isDontDestroy = false;
 
     #endregion
 
@@ -22,7 +23,7 @@ public class GameManager : Singleton<GameManager>
     public int m_levelAccess = 1;
     public LayerMask m_levelLayer;
     public LayerMask m_zoneLayer;
-    [HideInInspector] public int m_currentZone;
+    /*[HideInInspector]*/ public int m_currentZone;
     [HideInInspector] public ContainerZoneSO m_selectedZone;
 
     #endregion
@@ -59,7 +60,12 @@ public class GameManager : Singleton<GameManager>
 
     public void Awake()
     {
-        
+        if (!m_isDontDestroy)
+        {
+            DontDestroyOnLoad(this);
+            m_isDontDestroy = true;
+        }
+
         //Penser à supprimer cette ligne pour la version finale
         PlayerPrefs.SetInt("UnlockLvl", m_levelAccess);
         //DontDestroyOnLoad(this);
@@ -69,7 +75,7 @@ public class GameManager : Singleton<GameManager>
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("click");
+            
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
@@ -78,6 +84,7 @@ public class GameManager : Singleton<GameManager>
                 //Fonctionnalité du touch outLevel 
                 if (!m_levelStart)
                 {
+                    Debug.Log("click");
                     LayerMask layerMask = hit.collider.gameObject.layer;
 
                     //Sélection de niveau et chargement du niveau dans une nouvelle scène
@@ -97,9 +104,9 @@ public class GameManager : Singleton<GameManager>
                     {
                         m_selectedZone = hit.collider.GetComponent<ContainerZoneSO>();
 
-                        if (m_selectedZone.m_SO.zoneID <= PlayerPrefs.GetInt("UnlockLvl"))
+                        if (PlayerPrefs.GetInt("UnlockLvl") <= m_selectedZone.m_SO.zoneID)
                         {
-                            Debug.Log("m_currentZone");
+                            
                             ZoomSelection(m_selectedZone);
                             
                         }
@@ -126,10 +133,43 @@ public class GameManager : Singleton<GameManager>
 
     public void LaunchMain() 
     {
-        Debug.Log("start Launch " + m_zoneList.Count);
-        m_levelStart = false;
         SceneManager.LoadScene(1, LoadSceneMode.Single);
+        
+    }
 
+    public void InstanceMap()
+    {
+        for (int i = 0; i < GameManager.Instance.m_zoneList.Count; i++)
+        {
+            m_zoneList[i] = Instantiate(GameManager.Instance.m_zoneList[i]);
+            m_zoneList[i].SetActive(false);
+        }
+
+
+        m_zoneList[m_currentZone].SetActive(true);
+
+        //Launch interface et setactive false les non utile
+        GameManager.Instance.m_uiParent = FindObjectOfType<Canvas>();
+        if (GameManager.Instance.m_uiParent == null)
+        {
+            GameManager.Instance.m_uiParent = Instantiate(new Canvas());
+        }
+
+        Instantiate(GameManager.Instance.m_returnMainButton, GameManager.Instance.m_uiParent.transform);
+        if (GameManager.Instance.m_currentZone == 0)
+        {
+            GameManager.Instance.m_returnMainButton.SetActive(false);
+        }
+
+        
+            m_correctAlignList.Clear();
+            m_LevelList.Clear();
+        
+        
+
+        m_levelStart = false;
+        m_win = false;
+        m_gameOver = false;
     }
 
     /// <summary>
@@ -147,6 +187,17 @@ public class GameManager : Singleton<GameManager>
             m_uiParent = Instantiate(new Canvas());
         }
 
+        GameManager.Instance.m_looseScreen = Instantiate(m_looseScreen, GameManager.Instance.m_uiParent.transform);
+        GameManager.Instance.m_looseScreen.SetActive(false);
+
+        GameManager.Instance.m_winScreen = Instantiate(m_winScreen, GameManager.Instance.m_uiParent.transform);
+        GameManager.Instance.m_winScreen.SetActive(false);
+
+        /*m_pauseScreen = Instantiate(m_pauseScreen, m_uiParent.transform.parent);
+        m_pauseScreen.SetActive(false);*/
+
+        GameManager.Instance.m_countDown = Instantiate(m_countDown, GameManager.Instance.m_uiParent.transform);
+        GameManager.Instance.m_countDown.SetActive(true);
 
     }
 
@@ -171,7 +222,7 @@ public class GameManager : Singleton<GameManager>
             }
         }
 
-        if (valide == size)
+        if (valide == size && !m_win)
         {
             Debug.Log("victory");
             StartCoroutine(Victory());
@@ -194,8 +245,10 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("victory");
         m_win = true;
         m_winScreen.SetActive(true);
-        if (m_lvlSO.indexLevel == PlayerPrefs.GetInt("UnlockLvl"))
-            PlayerPrefs.SetInt("UnlockLvl", m_lvlSO.indexLevel + 1);
+        if (m_lvlSO.indexLevel == m_levelAccess)
+            m_levelAccess += 1;
+
+        PlayerPrefs.SetInt("UnlockLvl", m_levelAccess);
     }
 
     /// <summary>
@@ -223,10 +276,12 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("ZoomSelection");
 
         //Zoom sur la zone sélectionné
-        Debug.Log(p_selectedZone);
+        Debug.Log(p_selectedZone.m_SO.zoneID);
 
         m_currentZone = p_selectedZone.m_SO.zoneID;
-        m_zoneList[0].SetActive(false);
+
+
+        GameManager.Instance.m_zoneList[0].SetActive(false);
         m_zoneList[m_currentZone].SetActive(true);
         m_returnMainButton.SetActive(true);
         Debug.Log(m_currentZone);

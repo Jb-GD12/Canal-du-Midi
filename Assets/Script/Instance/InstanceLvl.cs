@@ -12,19 +12,19 @@ public class InstanceLvl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (GameManager.Instance.m_looseScreen == null)
+            GameManager.Instance.m_looseScreen = m_looseScreen;
+
+        if (GameManager.Instance.m_pauseScreen == null)
+            GameManager.Instance.m_pauseScreen = m_pauseScreen;
+        
+        if (GameManager.Instance.m_winScreen == null)
+            GameManager.Instance.m_winScreen = m_winScreen;
+        
+        if (GameManager.Instance.m_countDown == null)
+            GameManager.Instance.m_countDown = m_countDown;
+
         GameManager.Instance.StartLevel();
-
-        GameManager.Instance.m_looseScreen = Instantiate(m_looseScreen, GameManager.Instance.m_uiParent.transform);
-        GameManager.Instance.m_looseScreen.SetActive(false);
-
-        GameManager.Instance.m_winScreen = Instantiate(m_winScreen, GameManager.Instance.m_uiParent.transform);
-        GameManager.Instance.m_winScreen.SetActive(false);
-
-        /*m_pauseScreen = Instantiate(m_pauseScreen, m_uiParent.transform.parent);
-        m_pauseScreen.SetActive(false);*/
-
-        GameManager.Instance.m_countDown = Instantiate(m_countDown, GameManager.Instance.m_uiParent.transform);
-        GameManager.Instance.m_countDown.SetActive(true);
     }
 
     

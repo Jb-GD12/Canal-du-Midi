@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : Component
 {
-    [SerializeField] private string objectName = "GameManager";
-    [SerializeField] private bool dontDestroyOnLoad = true;
+    [SerializeField] private string objectName;
+    [SerializeField] private bool dontDestroyOnLoad;
 
     private static T m_instance;
 
@@ -22,7 +22,7 @@ public class Singleton<T> : MonoBehaviour where T : Component
                     CreateSingleton();
                 }
             }
-            Debug.Log("lts go");
+
             (m_instance as Singleton<T>)?.Initialize();
             return m_instance;
 
@@ -41,7 +41,6 @@ public class Singleton<T> : MonoBehaviour where T : Component
 
     protected void Initialize()
     {
-        Debug.Log("initialisation");
 
         //Optionnel nommage, config... etc
         gameObject.name = objectName;
