@@ -123,7 +123,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3478117604118543835, guid: 7aa7eededb508924ebc472aa3412db6d, type: 3}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: LevelToMenu
+        m_MethodName: LaunchMain
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

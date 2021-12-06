@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3478117604118543834
+--- !u!1 &3930069930706936999
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,67 +8,42 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3478117604118543836}
-  - component: {fileID: 3478117604118543835}
+  - component: {fileID: 9032724879992458335}
+  - component: {fileID: 7998424413075648841}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: InstanceLvl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3478117604118543836
+--- !u!4 &9032724879992458335
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3478117604118543834}
+  m_GameObject: {fileID: 3930069930706936999}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1067.116, y: 63.55945, z: -277.0348}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3478117604118543835
+--- !u!114 &7998424413075648841
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3478117604118543834}
+  m_GameObject: {fileID: 3930069930706936999}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af74ce37c77c06146a6fe9d46da9eee6, type: 3}
+  m_Script: {fileID: 11500000, guid: 26c8cb10f74291f439abb62f675ee72a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: GameManager
-  dontDestroyOnLoad: 0
-  m_levelStart: 0
-  m_zoneList:
-  - {fileID: 885155759542950829, guid: 081bdfbd33d5daf4f9ed601d2e608d49, type: 3}
-  - {fileID: 6922748340808635127, guid: 9358237c919266b47ba0e977fcd66604, type: 3}
-  m_LevelList: []
-  m_levelAccess: 1
-  m_levelLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  m_zoneLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  m_currentZone: 0
-  m_selectedZone: {fileID: 0}
-  m_correctAlignList: 
-  m_seconde: 0
-  m_minute: 0
-  m_gameOver: 0
-  m_win: 0
-  m_lvlSO: {fileID: 0}
-  m_returnMainButton: {fileID: 1999680933075108886, guid: 2d25968abe711c24e94975be5a9ab8f1, type: 3}
   m_looseScreen: {fileID: 6335507905900016817, guid: 3ea06bf730b88224a9b69a32c215900d, type: 3}
   m_winScreen: {fileID: 6335507905900016817, guid: db0037b78fdbc4848a748ed5ced3ed55, type: 3}
   m_pauseScreen: {fileID: 1999680933075108886, guid: 10365db24f7780e4bb52fa7a14389114, type: 3}
   m_countDown: {fileID: 8445210142152175848, guid: ec18fe57392765540ab65382c15cb6f2, type: 3}
-  m_uiParent: {fileID: 0}
-  m_isPause: 0

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nomDeZone: Toulouse
   zoneID: 1
+  zone: {fileID: 6922748340808635127, guid: 9358237c919266b47ba0e977fcd66604, type: 3}

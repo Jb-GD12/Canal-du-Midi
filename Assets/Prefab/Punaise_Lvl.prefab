@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7113325501471296797}
   - component: {fileID: 1125157730029566447}
   - component: {fileID: 2343381028789533129}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 4649459184729093718}
   - component: {fileID: 6625631440661532343}
   - component: {fileID: 49125227058464679}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4340443721484272631}
   - component: {fileID: 6327932707550047740}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Punaise_Lvl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
