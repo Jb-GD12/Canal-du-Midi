@@ -11,15 +11,28 @@ public class PipeWay : MonoBehaviour
     
     [SerializeField] [Tooltip("Liste de/des ID de rotation qui permettent de faire le bon chemin")] private List<int> m_correctRotationList;
 
-    [SerializeField] private bool m_isAlign;
+    [SerializeField] [Tooltip("Permet d'avoir un retour sur l'alignement de la tuile dans l'inspector")] private bool m_isAlign;
     
     // Start is called before the first frame update
     void Start()
     {
         m_idRotation = GetComponent<PipeRotation>();
-        m_idTampon = -1;
-        GameManager.Instance.m_correctAlignList.Add(false);
-
+        m_idTampon = 0;
+        
+        for (int i = 0; i < m_correctRotationList.Count; i++)
+        {
+            if (m_idRotation.m_currentRotation == m_correctRotationList[i])
+            {
+                GameManager.Instance.m_correctAlignList[m_idTuile] = true;
+                m_isAlign = true;
+            }
+            else
+            {
+                GameManager.Instance.m_correctAlignList[m_idTuile] = false;
+                m_isAlign = false;
+            }
+        }
+        
     }
 
     // Update is called once per frame

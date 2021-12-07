@@ -13,7 +13,7 @@ public class PipeRotation : MonoBehaviour
     [SerializeField] [Tooltip("Multiplicateur de temps de rotation")] private float m_lerpTime;
 
     
-    [FormerlySerializedAs("m_currentIndex")] [HideInInspector] public int m_currentRotation;
+    [FormerlySerializedAs("m_currentIndex")] public int m_currentRotation;
 
     private Vector3 m_minAngle;
     
@@ -22,7 +22,6 @@ public class PipeRotation : MonoBehaviour
     {
         m_isTouch = false;
         m_indexIsChanged = false;
-        m_currentRotation = 0;
     }
 
     // Update is called once per frame
