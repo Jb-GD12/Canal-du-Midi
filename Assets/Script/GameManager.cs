@@ -10,7 +10,7 @@ public class GameManager : Singleton<GameManager>
 
     #region Variable d'état
 
-    [HideInInspector] public bool m_levelStart;
+    /*[HideInInspector]*/ public bool m_levelStart;
     [HideInInspector] public bool m_isDontDestroy = false;
 
     #endregion
@@ -30,7 +30,8 @@ public class GameManager : Singleton<GameManager>
 
     #region levelVariables
 
-   [Header("Variables de niveaux")] [Tooltip("Liste regroupant l'état -alignement correct- des tuiles qui font le chemin souhaité")] public List<bool> m_correctAlignList;
+   [Header("Variables de niveaux")] 
+   [Tooltip("Liste regroupant l'état -alignement correct- des tuiles qui font le chemin souhaité")] public List<bool> m_correctAlignList;
     public int m_seconde;
     public int m_minute;
 
@@ -81,6 +82,8 @@ public class GameManager : Singleton<GameManager>
 
             if (Physics.Raycast(ray, out hit))
             {
+                Debug.Log("click");
+                
                 //Fonctionnalité du touch outLevel 
                 if (!m_levelStart)
                 {
@@ -117,7 +120,9 @@ public class GameManager : Singleton<GameManager>
                 //fonctinonalité du touche inLevel >> La tuile tourne de 90° quand le joueur la touche
                 else
                 {
-                    PipeRotation pipe = hit.collider.GetComponent<PipeRotation>();
+                    Tuile pipe = hit.collider.GetComponent<Tuile>();
+                    
+                    Debug.Log("tourne GameObject !");
 
                     if (!m_gameOver && !m_win && pipe != null && !pipe.m_isTouch)
                     {
@@ -162,9 +167,8 @@ public class GameManager : Singleton<GameManager>
         }
 
         
-            m_correctAlignList.Clear();
-            m_LevelList.Clear();
-        
+        m_correctAlignList.Clear();
+        m_LevelList.Clear();
         
 
         m_levelStart = false;
@@ -199,6 +203,8 @@ public class GameManager : Singleton<GameManager>
         GameManager.Instance.m_countDown = Instantiate(m_countDown, GameManager.Instance.m_uiParent.transform);
         GameManager.Instance.m_countDown.SetActive(true);
 
+        
+        Verification();
     }
 
     /// <summary>

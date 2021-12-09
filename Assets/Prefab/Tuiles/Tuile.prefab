@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7261659279223329044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4440041194642870026}
+  - component: {fileID: 7104862103694555398}
+  m_Layer: 0
+  m_Name: Tuile
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4440041194642870026
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7261659279223329044}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.138719, y: -3.8748016, z: -6.6337585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7104862103694555398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7261659279223329044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d2a835c26981f24c8367d4d7e5fa69d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_isTouch: 0
+  m_isTheWay: 0
+  m_isRotating: 0
+  m_tuileList:
+  - {fileID: 919132149155446097, guid: a2c9ca1777e546f49beab70a62287a50, type: 3}
+  - {fileID: 919132149155446097, guid: fefbdf0420ef52849b59bfc7e59c5f5d, type: 3}
+  - {fileID: 919132149155446097, guid: c41dd2834e7e4334f9226daa395cccf8, type: 3}
+  - {fileID: 919132149155446097, guid: 54c4fe2f939b48940b8455ce5aeaf95b, type: 3}
+  m_rotationList:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 90, z: 0}
+  - {x: 0, y: 180, z: 0}
+  - {x: 0, y: 270, z: 0}
+  m_correctRotationList: 
+  m_idFbx: 0
+  m_idTuile: 0
+  m_currentRotation: 0
