@@ -21,6 +21,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Script/Animator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Script/lvl_info/ZoneInfo_SO.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Script/Pipe/Tuile.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Script/lvl_info/ContainerZoneSO.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="20wivHTIUoXcVVOAkoS4djFVmGf" />
@@ -77,6 +78,7 @@
       <workItem from="1638748001196" duration="1000" />
       <workItem from="1638748073292" duration="3449000" />
       <workItem from="1638872077629" duration="2833000" />
+      <workItem from="1638982557441" duration="10712000" />
     </task>
     <servers />
   </component>

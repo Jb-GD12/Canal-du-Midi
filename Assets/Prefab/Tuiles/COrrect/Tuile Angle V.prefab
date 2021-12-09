@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_isTouch: 0
   m_targetRotationList:
-  - {x: 0, y: 380, z: 0}
+  - {x: 0, y: 0, z: 0}
   - {x: 0, y: 90, z: 0}
   - {x: 0, y: 180, z: 0}
   - {x: 0, y: 270, z: 0}

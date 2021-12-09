@@ -19,20 +19,8 @@ public class PipeWay : MonoBehaviour
         m_idRotation = GetComponent<PipeRotation>();
         m_idTampon = 0;
         
-        for (int i = 0; i < m_correctRotationList.Count; i++)
-        {
-            if (m_idRotation.m_currentRotation == m_correctRotationList[i])
-            {
-                GameManager.Instance.m_correctAlignList[m_idTuile] = true;
-                m_isAlign = true;
-            }
-            else
-            {
-                GameManager.Instance.m_correctAlignList[m_idTuile] = false;
-                m_isAlign = false;
-            }
-        }
-        
+        GameManager.Instance.m_correctAlignList.Add(false);
+
     }
 
     // Update is called once per frame
@@ -51,7 +39,7 @@ public class PipeWay : MonoBehaviour
         
         for (int i = 0; i < m_correctRotationList.Count; i++)
         {
-            if (m_idRotation.m_currentRotation == m_correctRotationList[i])
+            if (m_idTampon == m_correctRotationList[i])
             {
                 GameManager.Instance.m_correctAlignList[m_idTuile] = true;
                 m_isAlign = true;

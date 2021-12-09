@@ -22,6 +22,7 @@ public class PipeRotation : MonoBehaviour
     {
         m_isTouch = false;
         m_indexIsChanged = false;
+        transform.rotation = Quaternion.Euler(m_targetRotationList[m_currentRotation]);
     }
 
     // Update is called once per frame
@@ -39,14 +40,15 @@ public class PipeRotation : MonoBehaviour
                 
                 StartCoroutine(CoolDown());
             }
-            m_isTouch = false;
+            
         }
 
         //Rotation de la pièce à 90°
         if (m_isRotate)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.Euler(m_targetRotationList[m_currentRotation]),Time.deltaTime * m_lerpTime);
+            transform.rotation = Quaternion.Euler(m_targetRotationList[m_currentRotation]);
             GameManager.Instance.Verification();
+            
         }
 
         //vérification de l'alignement de la tuile
@@ -55,7 +57,7 @@ public class PipeRotation : MonoBehaviour
         {
             m_isRotate = false;
             transform.rotation = Quaternion.Euler(m_targetRotationList[m_currentRotation]);
-            GameManager.Instance.Verification();
+            m_isTouch = false;
         }
 
     }
@@ -66,7 +68,7 @@ public class PipeRotation : MonoBehaviour
     /// <returns></returns>
     IEnumerator CoolDown()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0f);
         
         m_indexIsChanged = false;
     }
