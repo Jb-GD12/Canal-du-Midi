@@ -1,9 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.SceneManagement;
+using TMPro;
+using System;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -26,6 +26,8 @@ public class GameManager : Singleton<GameManager>
     /*[HideInInspector]*/ public int m_currentZone;
     [HideInInspector] public ContainerZoneSO m_selectedZone;
 
+    public InstanceMap m_instanceMap;
+
     #endregion
 
     #region levelVariables
@@ -45,13 +47,14 @@ public class GameManager : Singleton<GameManager>
     #region Interface
 
     [Header("GameObject d'interface du main manu")]
-    public GameObject m_returnMainButton;
+    public GameObject m_returnMainButtonUi;
+    public GameObject m_nomLieuxUi;
 
     [Header("GameObject d'interface des niveaux")]
-    public GameObject m_looseScreen;
-    public GameObject m_winScreen;
-    public GameObject m_pauseScreen;
-    public GameObject m_countDown;
+    public GameObject m_looseScreenUi;
+    public GameObject m_winScreenUi;
+    public GameObject m_pauseScreenUi;
+    public GameObject m_countDownUi;
 
     [HideInInspector] public Canvas m_uiParent;
 
@@ -69,7 +72,6 @@ public class GameManager : Singleton<GameManager>
 
         //Penser à supprimer cette ligne pour la version finale
         PlayerPrefs.SetInt("UnlockLvl", m_levelAccess);
-        //DontDestroyOnLoad(this);
     }
 
     public void Update()
@@ -82,12 +84,10 @@ public class GameManager : Singleton<GameManager>
 
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log("click");
                 
                 //Fonctionnalité du touch outLevel 
                 if (!m_levelStart)
                 {
-                    Debug.Log("click");
                     LayerMask layerMask = hit.collider.gameObject.layer;
 
                     //Sélection de niveau et chargement du niveau dans une nouvelle scène
@@ -106,14 +106,11 @@ public class GameManager : Singleton<GameManager>
                     }else
                     {
                         m_selectedZone = hit.collider.GetComponent<ContainerZoneSO>();
-
-                        if (PlayerPrefs.GetInt("UnlockLvl") <= m_selectedZone.m_SO.zoneID)
+                        if (m_selectedZone.m_SO.zoneID <= PlayerPrefs.GetInt("UnlockLvl"))
                         {
                             
                             ZoomSelection(m_selectedZone);
-                            
                         }
-                        
                     }
                 }
 
@@ -122,12 +119,11 @@ public class GameManager : Singleton<GameManager>
                 {
                     Tuile pipe = hit.collider.GetComponent<Tuile>();
                     
-                    Debug.Log("tourne GameObject !");
-
-                    if (!m_gameOver && !m_win && pipe != null && !pipe.m_isTouch)
-                    {
-                        pipe.m_isTouch = true;
-                    }
+                        if (!m_gameOver && !m_win && pipe != null && !pipe.m_isTouch)
+                        {
+                            pipe.m_isTouch = true;
+                        }
+                    
                 }
                 
             }      
@@ -160,10 +156,16 @@ public class GameManager : Singleton<GameManager>
             GameManager.Instance.m_uiParent = Instantiate(new Canvas());
         }
 
-        Instantiate(GameManager.Instance.m_returnMainButton, GameManager.Instance.m_uiParent.transform);
-        if (GameManager.Instance.m_currentZone == 0)
+        GameManager.Instance.m_returnMainButtonUi = Instantiate(m_instanceMap.m_returnMainButton, GameManager.Instance.m_uiParent.transform);
+        if (m_currentZone == 0)
         {
-            GameManager.Instance.m_returnMainButton.SetActive(false);
+            GameManager.Instance.m_returnMainButtonUi.SetActive(false);
+        }
+
+        GameManager.Instance.m_nomLieuxUi =  Instantiate(m_instanceMap.m_nomLieux, GameManager.Instance.m_uiParent.transform);
+        if (m_currentZone == 0)
+        {
+            GameManager.Instance.m_nomLieuxUi.SetActive(false);
         }
 
         
@@ -191,17 +193,17 @@ public class GameManager : Singleton<GameManager>
             m_uiParent = Instantiate(new Canvas());
         }
 
-        GameManager.Instance.m_looseScreen = Instantiate(m_looseScreen, GameManager.Instance.m_uiParent.transform);
-        GameManager.Instance.m_looseScreen.SetActive(false);
+        GameManager.Instance.m_looseScreenUi = Instantiate(m_looseScreenUi, GameManager.Instance.m_uiParent.transform);
+        GameManager.Instance.m_looseScreenUi.SetActive(false);
 
-        GameManager.Instance.m_winScreen = Instantiate(m_winScreen, GameManager.Instance.m_uiParent.transform);
-        GameManager.Instance.m_winScreen.SetActive(false);
+        GameManager.Instance.m_winScreenUi = Instantiate(m_winScreenUi, GameManager.Instance.m_uiParent.transform);
+        GameManager.Instance.m_winScreenUi.SetActive(false);
 
         /*m_pauseScreen = Instantiate(m_pauseScreen, m_uiParent.transform.parent);
         m_pauseScreen.SetActive(false);*/
 
-        GameManager.Instance.m_countDown = Instantiate(m_countDown, GameManager.Instance.m_uiParent.transform);
-        GameManager.Instance.m_countDown.SetActive(true);
+        GameManager.Instance.m_countDownUi = Instantiate(m_countDownUi, GameManager.Instance.m_uiParent.transform);
+        GameManager.Instance.m_countDownUi.SetActive(true);
 
         
         Verification();
@@ -250,7 +252,7 @@ public class GameManager : Singleton<GameManager>
         yield return new WaitForSeconds(0.3f);
         Debug.Log("victory");
         m_win = true;
-        m_winScreen.SetActive(true);
+        m_winScreenUi.SetActive(true);
         if (m_lvlSO.indexLevel == m_levelAccess)
             m_levelAccess += 1;
 
@@ -264,8 +266,8 @@ public class GameManager : Singleton<GameManager>
     {
         m_gameOver = true;
         Debug.Log("GameOver");
-        m_looseScreen.SetActive(true);
-        m_countDown.SetActive(false);
+        m_looseScreenUi.SetActive(true);
+        m_countDownUi.SetActive(false);
     }
 
     public void Restart()
@@ -286,10 +288,11 @@ public class GameManager : Singleton<GameManager>
 
         m_currentZone = p_selectedZone.m_SO.zoneID;
 
+        GameManager.Instance.m_nomLieuxUi.GetComponentInChildren<TMP_Text>().text = p_selectedZone.m_SO.nomDeZone;
 
         GameManager.Instance.m_zoneList[0].SetActive(false);
         m_zoneList[m_currentZone].SetActive(true);
-        m_returnMainButton.SetActive(true);
+        GameManager.Instance.m_returnMainButtonUi.SetActive(true);
         Debug.Log(m_currentZone);
     }
 
@@ -302,7 +305,8 @@ public class GameManager : Singleton<GameManager>
         GameManager.Instance.m_zoneList[GameManager.Instance.m_currentZone].SetActive(false);
         GameManager.Instance.m_currentZone = 0;
         GameManager.Instance.m_zoneList[GameManager.Instance.m_currentZone].SetActive(true);
-
+        GameManager.Instance.m_returnMainButtonUi.SetActive(false);
+        GameManager.Instance.m_nomLieuxUi.SetActive(false);
 
     }
 }
