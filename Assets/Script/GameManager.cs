@@ -53,6 +53,7 @@ public class GameManager : Singleton<GameManager>
     [Header("GameObject d'interface des niveaux")]
     public GameObject m_looseScreenUi;
     public GameObject m_winScreenUi;
+    public GameObject m_pauseButtonUi;
     public GameObject m_pauseScreenUi;
     public GameObject m_countDownUi;
 
@@ -99,11 +100,12 @@ public class GameManager : Singleton<GameManager>
                         {
                             m_seconde = m_lvlSO.seconde;
                             m_minute = m_lvlSO.minute;
-
+                            
                             SceneManager.LoadScene(m_lvlSO.indexLevel + 1, LoadSceneMode.Single);
                             StartCoroutine(WaitForStart());
                         }
-                    }else
+                    }
+                    else
                     {
                         m_selectedZone = hit.collider.GetComponent<ContainerZoneSO>();
                         if (m_selectedZone.m_SO.zoneID <= PlayerPrefs.GetInt("UnlockLvl"))
@@ -117,13 +119,14 @@ public class GameManager : Singleton<GameManager>
                 //fonctinonalité du touche inLevel >> La tuile tourne de 90° quand le joueur la touche
                 else
                 {
+                    
                     Tuile pipe = hit.collider.GetComponent<Tuile>();
                     
                         if (!m_gameOver && !m_win && pipe != null && !pipe.m_isTouch)
                         {
                             pipe.m_isTouch = true;
                         }
-                    
+                        
                 }
                 
             }      
@@ -135,7 +138,6 @@ public class GameManager : Singleton<GameManager>
     public void LaunchMain() 
     {
         SceneManager.LoadScene(1, LoadSceneMode.Single);
-        
     }
 
     public void InstanceMap()
@@ -145,8 +147,7 @@ public class GameManager : Singleton<GameManager>
             m_zoneList[i] = Instantiate(GameManager.Instance.m_zoneList[i]);
             m_zoneList[i].SetActive(false);
         }
-
-
+        
         m_zoneList[m_currentZone].SetActive(true);
 
         //Launch interface et setactive false les non utile
@@ -167,11 +168,9 @@ public class GameManager : Singleton<GameManager>
         {
             GameManager.Instance.m_nomLieuxUi.SetActive(false);
         }
-
         
         m_correctAlignList.Clear();
         m_LevelList.Clear();
-        
 
         m_levelStart = false;
         m_win = false;
@@ -199,8 +198,10 @@ public class GameManager : Singleton<GameManager>
         GameManager.Instance.m_winScreenUi = Instantiate(m_winScreenUi, GameManager.Instance.m_uiParent.transform);
         GameManager.Instance.m_winScreenUi.SetActive(false);
 
-        /*m_pauseScreen = Instantiate(m_pauseScreen, m_uiParent.transform.parent);
-        m_pauseScreen.SetActive(false);*/
+        //Instancier le bouton pause
+        
+        GameManager.Instance.m_pauseScreenUi = Instantiate(GameManager.Instance.m_pauseScreenUi, m_uiParent.transform.parent);
+        GameManager.Instance.m_pauseScreenUi.SetActive(false);
 
         GameManager.Instance.m_countDownUi = Instantiate(m_countDownUi, GameManager.Instance.m_uiParent.transform);
         GameManager.Instance.m_countDownUi.SetActive(true);
@@ -256,6 +257,7 @@ public class GameManager : Singleton<GameManager>
         if (m_lvlSO.indexLevel == m_levelAccess)
             m_levelAccess += 1;
 
+        m_countDownUi.SetActive(false);
         PlayerPrefs.SetInt("UnlockLvl", m_levelAccess);
     }
 
@@ -270,8 +272,21 @@ public class GameManager : Singleton<GameManager>
         m_countDownUi.SetActive(false);
     }
 
+    public void Pause()
+    {
+        //GameManager.Instance.m_pauseButtonUi.SetActive(false);
+        GameManager.Instance.m_pauseScreenUi.SetActive(true);
+    }
+
+    public void QuitPause()
+    {
+        //GameManager.Instance.m_pauseButtonUi.SetActive(false);
+        GameManager.Instance.m_pauseScreenUi.SetActive(false);
+    }
+    
     public void Restart()
     {
+        
         Debug.Log("Restart");
     }
 
@@ -293,7 +308,7 @@ public class GameManager : Singleton<GameManager>
         GameManager.Instance.m_zoneList[0].SetActive(false);
         m_zoneList[m_currentZone].SetActive(true);
         GameManager.Instance.m_returnMainButtonUi.SetActive(true);
-        Debug.Log(m_currentZone);
+        GameManager.Instance.m_nomLieuxUi.SetActive(true);
     }
 
     /// <summary>
@@ -307,6 +322,5 @@ public class GameManager : Singleton<GameManager>
         GameManager.Instance.m_zoneList[GameManager.Instance.m_currentZone].SetActive(true);
         GameManager.Instance.m_returnMainButtonUi.SetActive(false);
         GameManager.Instance.m_nomLieuxUi.SetActive(false);
-
     }
 }

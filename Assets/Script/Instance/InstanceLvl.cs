@@ -6,6 +6,7 @@ public class InstanceLvl : MonoBehaviour
 {
     [SerializeField] private GameObject m_looseScreen;
     [SerializeField] private GameObject m_winScreen;
+    [SerializeField] private GameObject m_pauseButton; 
     [SerializeField] private GameObject m_pauseScreen;
     [SerializeField] private GameObject m_countDown;
 
@@ -17,6 +18,9 @@ public class InstanceLvl : MonoBehaviour
 
         if (GameManager.Instance.m_pauseScreenUi == null)
             GameManager.Instance.m_pauseScreenUi = m_pauseScreen;
+        
+        if (GameManager.Instance.m_pauseButtonUi == null)
+            GameManager.Instance.m_pauseButtonUi = m_pauseButton;
         
         if (GameManager.Instance.m_winScreenUi == null)
             GameManager.Instance.m_winScreenUi = m_winScreen;

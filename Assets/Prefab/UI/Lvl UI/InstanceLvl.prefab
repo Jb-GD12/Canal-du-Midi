@@ -45,5 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_looseScreen: {fileID: 6335507905900016817, guid: 3ea06bf730b88224a9b69a32c215900d, type: 3}
   m_winScreen: {fileID: 6335507905900016817, guid: db0037b78fdbc4848a748ed5ced3ed55, type: 3}
+  m_pauseButton: {fileID: 7876677889200682151, guid: fc30c8bb1bd52554e95132af3fc735bd, type: 3}
   m_pauseScreen: {fileID: 1999680933075108886, guid: 10365db24f7780e4bb52fa7a14389114, type: 3}
   m_countDown: {fileID: 8445210142152175848, guid: ec18fe57392765540ab65382c15cb6f2, type: 3}
