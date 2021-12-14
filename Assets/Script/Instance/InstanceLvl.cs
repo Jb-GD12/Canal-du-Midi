@@ -32,6 +32,7 @@ public class InstanceLvl : MonoBehaviour
         if (GameManager.Instance.m_countDownUi == null)
             GameManager.Instance.m_countDownUi = m_countDown;
 
+        GameManager.Instance.StartLevel();
     }
 
     

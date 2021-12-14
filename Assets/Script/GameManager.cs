@@ -106,7 +106,6 @@ public class GameManager : Singleton<GameManager>
                             m_minute = m_lvlSO.minute;
                             
                             SceneManager.LoadScene(m_lvlSO.indexLevel + 1, LoadSceneMode.Single);
-                            StartCoroutine(WaitForStart());
                         }
                     }
                     else
@@ -114,7 +113,6 @@ public class GameManager : Singleton<GameManager>
                         m_selectedZone = hit.collider.GetComponent<ContainerZoneSO>();
                         if (m_selectedZone.m_SO.zoneID <= PlayerPrefs.GetInt("UnlockLvl"))
                         {
-                            
                             ZoomSelection(m_selectedZone);
                         }
                     }
@@ -238,12 +236,6 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    IEnumerator WaitForStart()
-    {
-        yield return new WaitForSeconds(0.3f);
-        StartLevel();
-    }
-
     /// <summary>
     /// Fonction de victoire
     /// </summary>
@@ -254,6 +246,7 @@ public class GameManager : Singleton<GameManager>
         m_win = true;
         m_winScreenUi.SetActive(true);
         m_countDownUi.SetActive(false);
+        m_pauseButtonUi.SetActive(false);
         
         if (m_lvlSO.indexLevel == m_levelAccess)
             m_levelAccess += 1;
@@ -267,6 +260,7 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public void GameOver()
     {
+        m_pauseButtonUi.SetActive(false);
         m_gameOver = true;
         Debug.Log("GameOver");
         m_looseScreenUi.SetActive(true);
@@ -275,6 +269,7 @@ public class GameManager : Singleton<GameManager>
 
     public void Pause()
     {
+        Instance.m_pauseButtonUi.SetActive(false);
         Instance.m_pauseScreenUi.SetActive(true);
     }
 
@@ -286,6 +281,7 @@ public class GameManager : Singleton<GameManager>
     public void Restart()
     {
         Debug.Log("Restart");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     /// <summary>
