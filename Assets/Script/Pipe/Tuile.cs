@@ -23,8 +23,7 @@ public class Tuile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //
-        GameManager.Instance.m_correctAlignList.Add(false);
+        
         Instantiate(m_tuileList[m_idFbx], this.transform);
         m_isTouch = false;
         m_isRotating = false;
@@ -32,7 +31,10 @@ public class Tuile : MonoBehaviour
 
         //Vérification de l'alignement avant de rentrer en jeu
         if (m_isTheWay)
+        {
+            GameManager.Instance.m_correctAlignList.Add(false);
             StartCoroutine(LateStart());
+        }
     }
 
     // Update is called once per frame

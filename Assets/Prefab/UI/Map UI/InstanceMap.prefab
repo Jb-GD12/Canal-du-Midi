@@ -49,3 +49,4 @@ MonoBehaviour:
   - {fileID: 6922748340808635127, guid: 1c8ab77305c11fa419ecf0dc42cc0aca, type: 3}
   m_returnMainButton: {fileID: 1999680933075108886, guid: 2d25968abe711c24e94975be5a9ab8f1, type: 3}
   m_nomLieux: {fileID: 5579696254800063886, guid: 4c950674aabb1594691da50273ae9f2d, type: 3}
+  m_canvas: {fileID: 3648567407202638551, guid: c8162b0898d894f4fbe0a2a5de9986e5, type: 3}

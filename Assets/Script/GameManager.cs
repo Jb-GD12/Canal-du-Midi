@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System;
+using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -26,7 +27,10 @@ public class GameManager : Singleton<GameManager>
     /*[HideInInspector]*/ public int m_currentZone;
     [HideInInspector] public ContainerZoneSO m_selectedZone;
 
+    public string m_nomLieux;
+
     public InstanceMap m_instanceMap;
+    public InstanceLvl m_instanceLvl;
 
     #endregion
 
@@ -57,7 +61,7 @@ public class GameManager : Singleton<GameManager>
     public GameObject m_pauseScreenUi;
     public GameObject m_countDownUi;
 
-    [HideInInspector] public Canvas m_uiParent;
+    [HideInInspector] public GameObject m_uiParent;
 
     [HideInInspector] public bool m_isPause;
 
@@ -142,31 +146,31 @@ public class GameManager : Singleton<GameManager>
 
     public void InstanceMap()
     {
-        for (int i = 0; i < GameManager.Instance.m_zoneList.Count; i++)
+        for (int i = 0; i < Instance.m_zoneList.Count; i++)
         {
-            m_zoneList[i] = Instantiate(GameManager.Instance.m_zoneList[i]);
+            m_zoneList[i] = Instantiate(Instance.m_zoneList[i]);
             m_zoneList[i].SetActive(false);
         }
         
         m_zoneList[m_currentZone].SetActive(true);
 
         //Launch interface et setactive false les non utile
-        GameManager.Instance.m_uiParent = FindObjectOfType<Canvas>();
-        if (GameManager.Instance.m_uiParent == null)
-        {
-            GameManager.Instance.m_uiParent = Instantiate(new Canvas());
-        }
-
-        GameManager.Instance.m_returnMainButtonUi = Instantiate(m_instanceMap.m_returnMainButton, GameManager.Instance.m_uiParent.transform);
+        m_uiParent = Instantiate(m_instanceMap.m_canvas);
+        
+        m_returnMainButtonUi = Instantiate(m_instanceMap.m_returnMainButton, Instance.m_uiParent.transform);
         if (m_currentZone == 0)
         {
-            GameManager.Instance.m_returnMainButtonUi.SetActive(false);
+            m_returnMainButtonUi.SetActive(false);
         }
 
-        GameManager.Instance.m_nomLieuxUi =  Instantiate(m_instanceMap.m_nomLieux, GameManager.Instance.m_uiParent.transform);
+        m_nomLieuxUi =  Instantiate(m_instanceMap.m_nomLieux, Instance.m_uiParent.transform);
         if (m_currentZone == 0)
         {
-            GameManager.Instance.m_nomLieuxUi.SetActive(false);
+            m_nomLieuxUi.SetActive(false);
+        }
+        else
+        {
+            m_nomLieuxUi.GetComponentInChildren<TMP_Text>().text = m_nomLieux;
         }
         
         m_correctAlignList.Clear();
@@ -186,25 +190,23 @@ public class GameManager : Singleton<GameManager>
         m_win = false;
         m_levelStart = true;
 
-        m_uiParent = FindObjectOfType<Canvas>();
-        if (m_uiParent == null)
-        {
-            m_uiParent = Instantiate(new Canvas());
-        }
+        
+        Instance.m_uiParent = Instantiate(m_instanceLvl.m_canvas);
+        
+        m_looseScreenUi = Instantiate(m_looseScreenUi, m_uiParent.transform);
+        m_looseScreenUi.SetActive(false);
 
-        GameManager.Instance.m_looseScreenUi = Instantiate(m_looseScreenUi, GameManager.Instance.m_uiParent.transform);
-        GameManager.Instance.m_looseScreenUi.SetActive(false);
-
-        GameManager.Instance.m_winScreenUi = Instantiate(m_winScreenUi, GameManager.Instance.m_uiParent.transform);
-        GameManager.Instance.m_winScreenUi.SetActive(false);
+        m_winScreenUi = Instantiate(m_winScreenUi, m_uiParent.transform);
+        m_winScreenUi.SetActive(false);
 
         //Instancier le bouton pause
+        m_pauseButtonUi = Instantiate(m_pauseButtonUi, m_uiParent.transform);
         
-        GameManager.Instance.m_pauseScreenUi = Instantiate(GameManager.Instance.m_pauseScreenUi, m_uiParent.transform.parent);
-        GameManager.Instance.m_pauseScreenUi.SetActive(false);
+        m_pauseScreenUi = Instantiate(m_pauseScreenUi, m_uiParent.transform);
+        m_pauseScreenUi.SetActive(false);
 
-        GameManager.Instance.m_countDownUi = Instantiate(m_countDownUi, GameManager.Instance.m_uiParent.transform);
-        GameManager.Instance.m_countDownUi.SetActive(true);
+        m_countDownUi = Instantiate(m_countDownUi, m_uiParent.transform);
+        m_countDownUi.SetActive(true);
 
         
         Verification();
@@ -275,19 +277,16 @@ public class GameManager : Singleton<GameManager>
 
     public void Pause()
     {
-        //GameManager.Instance.m_pauseButtonUi.SetActive(false);
-        GameManager.Instance.m_pauseScreenUi.SetActive(true);
+        Instance.m_pauseScreenUi.SetActive(true);
     }
 
     public void QuitPause()
     {
-        //GameManager.Instance.m_pauseButtonUi.SetActive(false);
-        GameManager.Instance.m_pauseScreenUi.SetActive(false);
+        Instance.m_pauseScreenUi.SetActive(false);
     }
     
     public void Restart()
     {
-        
         Debug.Log("Restart");
     }
 
@@ -302,14 +301,16 @@ public class GameManager : Singleton<GameManager>
         //Zoom sur la zone sélectionné
         Debug.Log(p_selectedZone.m_SO.zoneID);
 
-        m_currentZone = p_selectedZone.m_SO.zoneID;
+        Instance.m_currentZone = p_selectedZone.m_SO.zoneID;
 
-        GameManager.Instance.m_nomLieuxUi.GetComponentInChildren<TMP_Text>().text = p_selectedZone.m_SO.nomDeZone;
+        Instance.m_nomLieux = p_selectedZone.m_SO.nomDeZone;
 
-        GameManager.Instance.m_zoneList[0].SetActive(false);
-        m_zoneList[m_currentZone].SetActive(true);
-        GameManager.Instance.m_returnMainButtonUi.SetActive(true);
-        GameManager.Instance.m_nomLieuxUi.SetActive(true);
+        Instance.m_nomLieuxUi.GetComponentInChildren<TMP_Text>().text = m_nomLieux;
+
+        Instance.m_zoneList[0].SetActive(false);
+        Instance.m_zoneList[Instance.m_currentZone].SetActive(true);
+        Instance.m_returnMainButtonUi.SetActive(true);
+        Instance.m_nomLieuxUi.SetActive(true);
     }
 
     /// <summary>
@@ -318,10 +319,10 @@ public class GameManager : Singleton<GameManager>
     public void DezoomSelection()
     {
         //Me demandez pas comment ça marche, ça marche.
-        GameManager.Instance.m_zoneList[GameManager.Instance.m_currentZone].SetActive(false);
-        GameManager.Instance.m_currentZone = 0;
-        GameManager.Instance.m_zoneList[GameManager.Instance.m_currentZone].SetActive(true);
-        GameManager.Instance.m_returnMainButtonUi.SetActive(false);
-        GameManager.Instance.m_nomLieuxUi.SetActive(false);
+        Instance.m_zoneList[Instance.m_currentZone].SetActive(false);
+        Instance.m_currentZone = 0;
+        Instance.m_zoneList[Instance.m_currentZone].SetActive(true);
+        Instance.m_returnMainButtonUi.SetActive(false);
+        Instance.m_nomLieuxUi.SetActive(false);
     }
 }

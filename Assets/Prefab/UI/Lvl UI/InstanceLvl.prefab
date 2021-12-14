@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c8cb10f74291f439abb62f675ee72a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_canvas: {fileID: 3648567407202638551, guid: c8162b0898d894f4fbe0a2a5de9986e5, type: 3}
   m_looseScreen: {fileID: 6335507905900016817, guid: 3ea06bf730b88224a9b69a32c215900d, type: 3}
   m_winScreen: {fileID: 6335507905900016817, guid: db0037b78fdbc4848a748ed5ced3ed55, type: 3}
   m_pauseButton: {fileID: 7876677889200682151, guid: fc30c8bb1bd52554e95132af3fc735bd, type: 3}

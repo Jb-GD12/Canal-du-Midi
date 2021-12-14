@@ -8,6 +8,7 @@ public class InstanceMap : MonoBehaviour
 
     public GameObject m_returnMainButton;
     public GameObject m_nomLieux;
+    public GameObject m_canvas;
 
 
     // Start is called before the first frame update

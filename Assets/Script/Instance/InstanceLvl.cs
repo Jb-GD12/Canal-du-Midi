@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class InstanceLvl : MonoBehaviour
 {
+    public GameObject m_canvas;
+    
     [SerializeField] private GameObject m_looseScreen;
     [SerializeField] private GameObject m_winScreen;
     [SerializeField] private GameObject m_pauseButton; 
@@ -13,6 +15,8 @@ public class InstanceLvl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameManager.Instance.m_instanceLvl = this;
+        
         if (GameManager.Instance.m_looseScreenUi == null)
             GameManager.Instance.m_looseScreenUi = m_looseScreen;
 
@@ -28,7 +32,6 @@ public class InstanceLvl : MonoBehaviour
         if (GameManager.Instance.m_countDownUi == null)
             GameManager.Instance.m_countDownUi = m_countDown;
 
-        GameManager.Instance.StartLevel();
     }
 
     
