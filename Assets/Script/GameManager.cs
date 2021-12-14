@@ -251,9 +251,10 @@ public class GameManager : Singleton<GameManager>
     IEnumerator Victory()
     {
         yield return new WaitForSeconds(0.3f);
-        Debug.Log("victory");
         m_win = true;
         m_winScreenUi.SetActive(true);
+        m_countDownUi.SetActive(false);
+        
         if (m_lvlSO.indexLevel == m_levelAccess)
             m_levelAccess += 1;
 
