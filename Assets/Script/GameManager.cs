@@ -217,7 +217,6 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public void Verification()
     {
-        Debug.Log("vérification");
         int size = m_correctAlignList.Count;
         int valide = 0;
 
@@ -235,7 +234,6 @@ public class GameManager : Singleton<GameManager>
 
         if (valide == size && !m_win)
         {
-            Debug.Log("victory");
             StartCoroutine(Victory());
         }
     }

@@ -192,7 +192,7 @@ PrefabInstance:
     - target: {fileID: 6327932707550047740, guid: 8b775f165a06dd7428cffa62ed3d2048, type: 3}
       propertyPath: m_SO
       value: 
-      objectReference: {fileID: 11400000, guid: 7f42593131b250c48abe56a3adf37fa0, type: 2}
+      objectReference: {fileID: 11400000, guid: 14e741c3725ba294a9e4f64b088ac70a, type: 2}
     - target: {fileID: 7807608378638018803, guid: 8b775f165a06dd7428cffa62ed3d2048, type: 3}
       propertyPath: m_Name
       value: Punaise

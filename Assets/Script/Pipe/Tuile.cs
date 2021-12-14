@@ -43,7 +43,6 @@ public class Tuile : MonoBehaviour
         //En prévision de l'ajout d'animations de rotation --> m_isRotating = false à la fin de l'animation
         if (m_isTouch && !m_isRotating)
         {
-            Debug.Log("tourne !");
             m_isRotating = true;
             m_currentRotation++;
             if (m_currentRotation == 4)
@@ -72,6 +71,8 @@ public class Tuile : MonoBehaviour
         
         if(m_isTheWay)
             Verification();
+        
+        m_isRotating = false;
     }
 
     /// <summary>
@@ -92,6 +93,6 @@ public class Tuile : MonoBehaviour
             }
         }
         GameManager.Instance.Verification();
-        m_isRotating = false;
+        
     }
 }
