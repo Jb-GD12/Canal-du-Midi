@@ -21,10 +21,10 @@ public class GameManager : Singleton<GameManager>
     public List<GameObject> m_zoneList;
     
     [HideInInspector] public List<ContainerLevelSO> m_LevelList;
-    public int m_levelAccess = 1;
+    [HideInInspector] public int m_levelAccess = 1;
     public LayerMask m_levelLayer;
     public LayerMask m_zoneLayer;
-    /*[HideInInspector]*/ public int m_currentZone;
+    [HideInInspector] public int m_currentZone;
     [HideInInspector] public ContainerZoneSO m_selectedZone;
 
     public string m_nomLieux;
@@ -36,13 +36,13 @@ public class GameManager : Singleton<GameManager>
 
     #region levelVariables
 
-   [Header("Variables de niveaux")] 
-   [Tooltip("Liste regroupant l'état -alignement correct- des tuiles qui font le chemin souhaité")] public List<bool> m_correctAlignList;
+    [Header("Variables de temps")] 
+    [Tooltip("Liste regroupant l'état -alignement correct- des tuiles qui font le chemin souhaité")] public List<bool> m_correctAlignList;
     public int m_seconde;
     public int m_minute;
-
-    public bool m_gameOver;
-    public bool m_win;
+    
+    [HideInInspector] public bool m_gameOver;
+    [HideInInspector] public bool m_win;
 
     [HideInInspector] public LvlInfo_SO m_lvlSO;
 
@@ -74,9 +74,11 @@ public class GameManager : Singleton<GameManager>
             DontDestroyOnLoad(this);
             m_isDontDestroy = true;
         }
+        if(PlayerPrefs.GetInt("UnlockLvl") == 0)
+            PlayerPrefs.SetInt("UnlockLvl", 1);
 
         //Penser à supprimer cette ligne pour la version finale
-        PlayerPrefs.SetInt("UnlockLvl", m_levelAccess);
+        m_levelAccess = PlayerPrefs.GetInt("UnlockLvl");
     }
 
     public void Update()
@@ -184,6 +186,8 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public void StartLevel()
     {
+        Time.timeScale = 1f;
+        
         m_gameOver = false;
         m_win = false;
         m_levelStart = true;
@@ -269,12 +273,15 @@ public class GameManager : Singleton<GameManager>
 
     public void Pause()
     {
+        Time.timeScale = 0f;
         Instance.m_pauseButtonUi.SetActive(false);
         Instance.m_pauseScreenUi.SetActive(true);
     }
 
     public void QuitPause()
     {
+        Time.timeScale = 1f;
+        Instance.m_pauseButtonUi.SetActive(true);
         Instance.m_pauseScreenUi.SetActive(false);
     }
     
@@ -318,5 +325,13 @@ public class GameManager : Singleton<GameManager>
         Instance.m_zoneList[Instance.m_currentZone].SetActive(true);
         Instance.m_returnMainButtonUi.SetActive(false);
         Instance.m_nomLieuxUi.SetActive(false);
+    }
+
+    public void ReInit()
+    {
+        m_levelAccess = 1;
+        PlayerPrefs.SetInt("UnlockLvl", m_levelAccess);
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
+        Application.Quit();
     }
 }

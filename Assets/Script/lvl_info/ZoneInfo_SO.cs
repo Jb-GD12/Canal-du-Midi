@@ -5,6 +5,7 @@ using UnityEngine;
 public class ZoneInfo_SO : ScriptableObject
 {
     public string nomDeZone;
-    public int zoneID;
+    [Tooltip("ID de la zone dans le tableau zone")] public int zoneID;
+    [Tooltip("Index par rapport à 'UnlockLvl")] public int zoneIndex;
 
 }
