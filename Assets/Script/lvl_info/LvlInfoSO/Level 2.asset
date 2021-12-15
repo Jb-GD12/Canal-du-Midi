@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nomDuNiveau: Niveau 2
   indexLevel: 2
-  seconde: 45
+  seconde: 30
   minute: 0
